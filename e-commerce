@@ -1,0 +1,89 @@
+/*
+All data
+*/
+
+SELECT * FROM flo
+--Distinct 
+SELECT DISTINCT order_channel FROM flo
+
+SELECT * FROM flo
+WHERE order_channel='Desktop'
+AND (customer_value_total_ever_offline+customer_value_total_ever_online)>7000
+
+SELECT order_num_total_ever_offline, first_order_date FROM flo  --IF WE WRITE ORDER_NUM_TOTAL_EVER_OFFLINE, WE SHOULD ADD GROUP BY
+GROUP BY order_num_total_ever_offline, first_order_date
+ORDER BY first_order_date DESC
+
+SELECT master_id, first_order_date FROM flo  --IF WE WRITE ORDER_NUM_TOTAL_EVER_OFFLINE, WE SHOULD ADD GROUP BY
+GROUP BY master_id, first_order_date
+ORDER BY first_order_date DESC
+
+SELECT * FROM flo
+WHERE order_channel='DESKTOP' OR order_channel = 'MOBILE'
+
+SELECT * FROM flo
+WHERE order_channel IN ('Ios App','Android App')
+
+SELECT * FROM flo
+WHERE order_channel = 'Ios App' OR order_channel = 'Android App'
+
+SELECT * FROM flo
+WHERE last_order_date BETWEEN '2020-07-19' AND '2020-07-20'  --DATEPART
+
+SELECT first_order_date AS FOD FROM flo --ALIAS SHOULD NOT HAVE BLANK ADD_ OR []
+
+
+
+
+
+
+SELECT * FROM flo
+WHERE order_channel IN('DESKTOP', 'MOBILE')
+
+SELECT last_order_date FROM flo
+WHERE last_order_date is NULL
+
+SELECT * FROM flo
+WHERE last_order_date is NULL
+
+SELECT * FROM flo
+WHERE last_order_date is NOT NULL
+
+-- How can I delete android app orders
+--DELETE FROM flo
+--WHERE order_channel = 'Android App'
+
+SELECT TOP 10 * FROM flo
+
+SELECT TOP 10 * FROM flo
+ORDER BY first_order_date
+
+SELECT MAX(order_num_total_ever_online) FROM flo
+
+SELECT MAX(order_num_total_ever_online),master_id FROM flo
+GROUP BY master_id
+
+SELECT SUM(order_num_total_ever_online) AS Total_Desktop_Order FROM flo
+WHERE order_channel = 'Desktop'
+
+SELECT COUNT(*) FROM flo WHERE order_channel = 'Desktop'
+
+select SUM(order_num_total_ever_online), last_order_channel from flo where last_order_channel='Desktop' group by order_num_total_ever_online,last_order_channel
+
+Select MAX(last_order_date), SUM(order_num_total_ever_offline+order_num_total_ever_online) FROM flo
+
+SELECT AVG(customer_value_total_ever_online+customer_value_total_ever_offline)FROM flo
+WHERE order_channel = 'Mobile'
+
+SELECT * FROM flo
+WHERE order_channel LIKE '%App%'
+
+SELECT * FROM flo
+WHERE order_channel LIKE 'App'
+
+SELECT * FROM flo WHERE last_order_channel = '2019-08-03'
+UNION SELECT * FROM flo WHERE order_channel='DESKTOP' OR order_channel = 'MOBILE'
+
+(SELECT COUNT(master_id) FROM flo)
+UNION
+(SELECT sum(customer_value_total_ever_offline+customer_value_total_ever_offline) FROM flo)
